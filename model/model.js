@@ -1,19 +1,21 @@
-const mongoose = require('mongoose'); 
-const Schema = mongoose.Schema;//這邊是在使用mongoose的Schema函數。
+const express = require('express');
+const firebase = require("firebase/app");
+require('firebase/auth');
+require('firebase/database');
 
-var dbSchema = new Schema ({
-    _id:mongoose.Schema.Types.ObjectId,//這個會按照DB資料進來的時間建立id
-    title:String,
-    description:String
-});
+var firebaseConfig = {
+    apiKey: "AIzaSyAmpYcoRasnQ2PIuhrUsWT5gzS-uvIL-70",
+    authDomain: "todolist-72f6d.firebaseapp.com",
+    databaseURL: "https://todolist-72f6d.firebaseio.com",
+    projectId: "todolist-72f6d",
+    storageBucket: "todolist-72f6d.appspot.com",
+    messagingSenderId: "806075941076",
+    appId: "1:806075941076:web:5432cbd5774c6d3e9bfb41",
+    measurementId: "G-C61NM483PG"
+  };
 
-var x = 123
+firebase.initializeApp(firebaseConfig);
+const database = firebase.database();
+const ref = database.ref('task');
 
-
-var dbdata= mongoose.model('dbdata',dbSchema);
-
-//mongoose.model是用來建立此資料格式在DB裡面。
-
-module.exports = {dbdata,x}
-
-//this will equal to the model that shows in the docs.
+module.exports = {ref, database ,firebaseConfig}

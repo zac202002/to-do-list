@@ -2,9 +2,9 @@ const express = require('express');
 const app = express();
 const apiRouter = express.Router(); 
 const tasks = require('./tasks.js');
-const mongoose = require('mongoose');
-const model= require('./model/model');
 const bodyParser = require('body-parser');
+const database = require('./model/model.js');
+
 app.use(express.json()); // we will sent data to JSON string (Jsonfile)
 
 apiRouter.post('/', function(req,res,next){
@@ -25,20 +25,26 @@ apiRouter.post('/api/tasks', function(req,res){
     return; } else if (req.body.id < tasks.length  ) {
       res.status(404).send('The task is existed !');
       return;
-    };
+    } else saveData();
   
     //The rest of the code won't be execute if the validation is failed.//
-    const task = new model.dbdata({
-      'id': new mongoose.Types.ObjectId(),
-      'title' : req.body.title,
-      'description':'#'+(tasks.length+1)+' '+'Task Create!'+','+ req.body.title
-    });
-    console.log('task has successfully been added!');
-    task.save((result)=>{
+    
+    function saveData(){
+      const task = {
+        'id':tasks.length+1,
+        'title' : req.body.title,
+        'description':'#'+(tasks.length+1)+' '+'Task Create!'+','+ req.body.title
+      };
+      console.log('task has successfully been added!');
+      
+      //save to firebase data base. 
+      
+      database.ref.push(task);
       console.log(req.body);
-      console.log('data has save ='+task)});
-    tasks.push(task);
-    res.status(200).json(task);
-  });
+      console.log(task);
+      tasks.push(task);
+      res.status(200).json(task);
+    };
+  })
 
 module.exports= apiRouter;

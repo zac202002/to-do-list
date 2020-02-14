@@ -1,5 +1,5 @@
 {
-  "name": "api",
+  "name": "package.json",
   "version": "1.0.0",
   "description": "first restful api",
   "main": "app.js",
@@ -7,8 +7,10 @@
     "axios": "^0.19.0",
     "dotenv": "^8.2.0",
     "express": "file:express",
+    "firebase": "^7.8.2",
     "googleapis": "^46.0.0",
     "mongoose": "^5.8.9",
+    "mongoose-delete": "^0.5.1",
     "node-fetch": "^2.6.0",
     "nodemon": "^2.0.2",
     "save": "^2.4.0",
@@ -20,5 +22,16 @@
     "devStart": "nodemon app.js"
   },
   "author": "zac",
-  "license": "MIT"
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zac-laravel/to-do-list.git"
+  },
+  "keywords": [
+    "firebase_data"
+  ],
+  "bugs": {
+    "url": "https://github.com/zac-laravel/to-do-list/issues"
+  },
+  "homepage": "https://github.com/zac-laravel/to-do-list#readme"
 }

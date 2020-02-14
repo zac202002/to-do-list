@@ -1,6 +1,5 @@
-// generate the check list. 
-  // Your web app's Firebase configuration
-  var firebaseConfig = {
+// Your web app's Firebase configuration
+var firebaseConfig = {
     apiKey: "AIzaSyAmpYcoRasnQ2PIuhrUsWT5gzS-uvIL-70",
     authDomain: "todolist-72f6d.firebaseapp.com",
     databaseURL: "https://todolist-72f6d.firebaseio.com",
@@ -12,9 +11,9 @@
   };
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
-  firebase.analytics();
   console.log(firebase);
-  firebase.database();
+  firebase.analytics();
+// generate the check list. 
 
 var submitResult = document.getElementById('submitButton');
 //if addEventListner cant find the docs , it will have wrong answer !//
