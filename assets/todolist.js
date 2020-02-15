@@ -16,7 +16,20 @@ var firebaseConfig = {
 // generate the check list. 
 
 var submitResult = document.getElementById('submitButton');
+var input = document.getElementById('inputBox');
 //if addEventListner cant find the docs , it will have wrong answer !//
+
+input.addEventListener('keyup', function(event){
+
+    if (event.keyCode === 13) {
+
+        event.preventDefault();
+        submitResult.click();
+    }
+})
+
+
+
 submitResult.addEventListener('click', function () {
     const inputBox = document.getElementById('inputBox');
     if (inputBox.value !== "") {
@@ -24,7 +37,7 @@ submitResult.addEventListener('click', function () {
         let ResultArea = document.getElementById('checklist-head');
         const content = "<div class='result container'><input type='checkbox' id='c1' name='cc' />" + "<label class='col-md-11 col-11 text-left' for='c1'>" + ValueofBox + "</label><span class='checkmark'><span>";
         ResultArea.insertAdjacentHTML('afterbegin', content);
-        
+        //call function for enter key. 
         //saving data by calling the api. 
         data = {title : ValueofBox}
         function postData(){
@@ -75,7 +88,3 @@ ResultArea.addEventListener('click', function (e) {
     }
 
 })
-
-
-
-
