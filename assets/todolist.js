@@ -19,6 +19,7 @@ var submitResult = document.getElementById('submitButton');
 var input = document.getElementById('inputBox');
 //if addEventListner cant find the docs , it will have wrong answer !//
 
+// input with keyup event.
 input.addEventListener('keyup', function(event){
 
     if (event.keyCode === 13) {
@@ -28,8 +29,7 @@ input.addEventListener('keyup', function(event){
     }
 })
 
-
-
+//submit Result logic. 
 submitResult.addEventListener('click', function () {
     const inputBox = document.getElementById('inputBox');
     if (inputBox.value !== "") {
@@ -74,17 +74,35 @@ ResultArea.addEventListener('click', function (e) {
     var CancelEvent = document.getElementsByClassName('checkmark')[0].className;
     if (e.target.className == CancelEvent) {
         //console.log(e.currentTarget);
+        //console.log(e.target);
+        //console.log(e.currentTarget.innerText);
         //console.log(e.target.parentNode);
         //console.log("Task finished!")
         //console.log(e.target.parentNode.childNodes)
-        var checkMark = e.target.parentNode;
+        const checkMark = e.target.parentNode;
+        const getTaskName = e.target.previousSibling.innerText; 
         checkMark.remove();
+        console.log(getTaskName);
+        //Remove the data from the firebase data base.
+        const data = {title : getTaskName,status:'delete' };
+        function deleteData(){
+            var item =  {
+                method: 'POST',
+                headers:{'content-type': 'application/json'},
+                body:JSON.stringify(data) 
+            };
+            fetch('/api/tasks', item)
+            .then(function(res){
+            
+            console.log(res);
+            
+            })
+        }
+        deleteData();
+        console.log("Task Delete!");
     } else {
 
-        //console.log('not the right area!')
-        //console.log( e.target.className);
-        //console.log(CancelEvent);
-
+        console.log('failed to remove the content !');   
     }
 
 })

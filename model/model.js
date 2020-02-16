@@ -13,9 +13,15 @@ var firebaseConfig = {
     appId: "1:806075941076:web:5432cbd5774c6d3e9bfb41",
     measurementId: "G-C61NM483PG"
   };
-
 firebase.initializeApp(firebaseConfig);
 const database = firebase.database();
-const ref = database.ref('task');
+var keyRef = database.ref();
+//Db items count.
+//keyRef.once('value',function(snapshot) {
+//var data =snapshot.numChildren();
+//})
+//var key = '1'
 
-module.exports = {ref, database ,firebaseConfig}
+
+
+module.exports = {keyRef,database ,firebaseConfig}

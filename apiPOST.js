@@ -3,7 +3,7 @@ const app = express();
 const apiRouter = express.Router(); 
 const tasks = require('./tasks.js');
 const bodyParser = require('body-parser');
-const database = require('./model/model.js');
+const databaseConfig = require('./model/model.js');
 
 app.use(express.json()); // we will sent data to JSON string (Jsonfile)
 
@@ -22,29 +22,45 @@ apiRouter.post('/api/tasks', function(req,res){
       res.status(404).send('The "title" is required !');
       console.log('false-request!');
       console.log(req.body);
-    return; } else if (req.body.id < tasks.length  ) {
-      res.status(404).send('The task is existed !');
-      return;
+    return; } else if (req.body.status) {
+      //res.status(404).send('The task is existed !');
+      res.send('data has been delete');
+      //console.log('data has been delete!');
+      //console.log(req.body.status);
+      deleteData();
     } else saveData();
   
-    //The rest of the code won't be execute if the validation is failed.//
-    
+    // func for data saving.   
     function saveData(){
+
       const task = {
-        'id':tasks.length+1,
+        //'id':databaseConfig.key,
         'title' : req.body.title,
         'description':'#'+(tasks.length+1)+' '+'Task Create!'+','+ req.body.title
       };
       console.log('task has successfully been added!');
       
       //save to firebase data base. 
-      
-      database.ref.push(task);
-      console.log(req.body);
-      console.log(task);
+      databaseConfig.keyRef.push(task);
+      //console.log(req.body);
+      //console.log(task);
+      //save data to the api for local later . 
       tasks.push(task);
       res.status(200).json(task);
     };
+
+    function deleteData() {
+    var filter = databaseConfig.keyRef.orderByChild('title').equalTo(req.body.title);
+    //var key = filter.once('value',function(snapshot){  snapshot.val()});
+    databaseConfig.keyRef.once('value').then(
+        function(snapshot){
+          var data = snapshot.val();
+          var keys = Object.keys(data);
+          console.log('------------');
+          console.log(keys)
+          databaseConfig.database.ref('/'+keys).remove()});
+         
+    }
   })
 
 module.exports= apiRouter;
