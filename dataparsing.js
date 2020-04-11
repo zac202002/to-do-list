@@ -13,7 +13,7 @@ fetch('http://gank.io/api/data/%E7%A6%8F%E5%88%A9/0/1',{method:'get'})
     console.log(res.url);
     console.log(typeof(x));
     //將返回的response 物件直接變成Json 檔案。 ; 
-    return x;
+    return x;//要記得return.
 }).then(function(result){
     //var realData= JSON.parse(result);//
     var newString= JSON.stringify(result);

@@ -93,8 +93,9 @@ ResultArea.addEventListener('click', function (e) {
             };
             fetch('/api/tasks', item)
             .then(function(res){
-            
+            //箭頭韓式可以直接使用。
             console.log(res);
+            return res.json();
             
             })
         }

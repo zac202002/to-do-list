@@ -41,16 +41,13 @@ apiRouter.post('/api/tasks', function(req,res){
       console.log('task has successfully been added!');
       
       //save to firebase data base. 
-      databaseConfig.keyRef.push(task);
-      //console.log(req.body);
-      //console.log(task);
-      //save data to the api for local later . 
+      databaseConfig.database.ref('/').push(task); // can't use the ref need to use the keyRef.
       tasks.push(task);
       res.status(200).json(task);
     };
 
     function deleteData() {
-    var filter = databaseConfig.keyRef.orderByChild('title').equalTo(req.body.title);
+    var filter = databaseConfig.database.ref('/').orderByChild('title').equalTo(req.body.title);
     //var key = filter.once('value',function(snapshot){  snapshot.val()});
     databaseConfig.keyRef.once('value').then(
         function(snapshot){
@@ -59,7 +56,7 @@ apiRouter.post('/api/tasks', function(req,res){
           console.log('------------');
           console.log(keys)
           databaseConfig.database.ref('/'+keys).remove()});
-         
+          //why the ref can be use at here ? 
     }
   })
 
