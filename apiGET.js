@@ -3,6 +3,8 @@ const apiRouter = express.Router();
 const tasks = require('./tasks.js');
 
 
+
+
 apiRouter.get('/api/', function (req, res) {
     res.send('this is the second page');
     console.log('middleWareAPI has been fired!')
@@ -33,5 +35,19 @@ apiRouter.get('/api/tasks/:id', function (req, res, next) {
 apiRouter.get('/api/tasks/:id/:year/:month', function (req, res) {
     res.send(req.params.id.year)
   });
+
+// this is the login page method routing. 
+
+apiRouter.get('/login',function(req, res){
+
+    res.render('login.ejs');
+    res.status(200);
+})
+
+apiRouter.get('/register',function(req, res){
+
+  res.render('register.ejs');
+  res.status(200);
+})
 
 module.exports= apiRouter;

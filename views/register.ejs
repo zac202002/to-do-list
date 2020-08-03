@@ -1,0 +1,45 @@
+<h1>Register</h1>
+<div>
+    <label for ="email">email</label>
+    <input name="email" type="text" id="email"   required>
+    <br>
+    <br>
+    <label for ="password">password</label>
+    <input name="password" type="text" id="password"  required>
+    <br>
+    <br>
+    <button id="button" onclick="submit()" value="Submit">click that shit</button>
+</div>
+<h2><a href="/login">Login</a></h2>
+
+<script>
+
+function submit(){
+  const button = document.getElementById('button')
+  const email = document.getElementById('email').value
+  const password = document.getElementById('password').value
+  button.addEventListener('click',()=>{
+  const value = {
+        Email:email,
+        Password:password
+      }
+    fetch('/member',{
+      method:'POST', // must
+      body:JSON.stringify(value), //body might
+      headers:{'content-type': 'application/json'}//headers , you must 
+    }).then((res)=>{
+      console.log('第一次response')
+      return res.text() // 
+      //由於第一次取得的資料中，獲得的response 
+      //是一個 readable的物件，因此會透過res搭配的方法在執行一次，
+      //接著再用一個then做處理，才可以再使用該資料。
+    }).then((text)=>{
+      console.log('這是答案'+text)      
+    }).catch((err)=>{
+      console.log(err);
+    })
+
+  })
+}
+
+</script>

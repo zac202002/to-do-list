@@ -12,7 +12,7 @@ app.use(express.json());
 app.use(middleWareRouter); // middleware 
 app.use(apiGET); // apiGet route. 
 app.use(apiPOST);// apiPost route. 
-
+app.set('view-engine','ejs')
 
 //Below is rendering the content by front-end Server. 
 
